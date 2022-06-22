@@ -5,9 +5,9 @@ FTP Honeypot
 
 Features:
  * FTP + SSL-FTP
- * Catch used credentials
- * Catch malware files
- * distribute honeytoken files
+ * Перехват используемых учетных данных
+ * Отлов вредоносных файлов
+ * распространять файлы honeytoken
 
 Dependencies:
  * Twisted
