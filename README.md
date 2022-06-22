@@ -47,4 +47,4 @@ OpenSSL.SSL.Error: [('system library', 'fopen', 'No such process'), ('BIO routin
  --> Certifcate Files not found (wrong path?)
 
 All rights reserved.
-(c) 2014 by Alexander Bredo
+(c) 2022 by Semennikov Kirill
