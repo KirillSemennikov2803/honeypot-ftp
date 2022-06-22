@@ -58,23 +58,23 @@ class SimpleFtpProtocol(FTP):
         FTP.lineReceived(self, line)
 
     def ftp_STOR(self, path):
-        FTP.sendLine(self, "125 Data connection already open, starting transfer")
-        FTP.sendLine(self, "226 Transfer Complete.")
+        FTP.sendLine(self, b"125 Data connection already open, starting transfer")
+        FTP.sendLine(self, b"226 Transfer Complete.")
 
     def ftp_DELE(self, path):
-        FTP.sendLine(self, "250 Requested File Action Completed OK")
+        FTP.sendLine(self, b"250 Requested File Action Completed OK")
 
     def ftp_RNFR(self, fromName):
-        FTP.sendLine(self, "350 Requested file action pending further information.")
+        FTP.sendLine(self, b"350 Requested file action pending further information.")
 
     def ftp_RNTO(self, toName):
-        FTP.sendLine(self, "250 Requested File Action Completed OK")
+        FTP.sendLine(self, b"250 Requested File Action Completed OK")
 
     def ftp_MKD(self, path):
-        FTP.sendLine(self, "257 Folder created")
+        FTP.sendLine(self, b"257 Folder created")
 
     def ftp_RMD(self, path):
-        FTP.sendLine(self, "250 Requested File Action Completed OK")
+        FTP.sendLine(self, b"250 Requested File Action Completed OK")
 
     def __logInfo(self, type, command, successful):
         try:
