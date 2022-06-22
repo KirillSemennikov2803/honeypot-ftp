@@ -19,9 +19,9 @@ class FTPConfig:
         self.port = 21
         self.sslport = 990
         self.pubdir = "pub/"
-        self.passwdfile = "passwd"
-        self.sslcertprivate = "keys/smtp.private.key"
-        self.sslcertpublic = "keys/smtp.public.key"
+        self.passwd_file = "passwd"
+        self.ssl_cert_private = "keys/smtp.private.key"
+        self.ssl_cert_public = "keys/smtp.public.key"
         self.elasticsearch = {"host": "127.0.0.1", "port": 9200, "index": "honeypot"}
         self.filename = "Ftp_honeypot_data.txt"
 
@@ -43,7 +43,7 @@ class SimpleFtpProtocol(FTP):
         self.session = str(
             uuid.uuid1()
         )
-        self.myownhost = None
+        self.my_own_host = None
 
     def connectionMade(self):
         self.__logInfo("connected", "", True)
@@ -78,7 +78,7 @@ class SimpleFtpProtocol(FTP):
 
     def __logInfo(self, type, command, successful):
         try:
-            self.myownhost = self.transport.getHost()
+            self.my_own_host = self.transport.getHost()
         except AttributeError:
             pass
 
@@ -92,22 +92,22 @@ class SimpleFtpProtocol(FTP):
             "success": successful,
             "session": self.session,
         }
-        if self.myownhost:
-            data["destinationIPv4Address"] = str(self.myownhost.host)
-            data["destinationTransportPort"] = self.myownhost.port
+        if self.my_own_host:
+            data["destinationIPv4Address"] = str(self.my_own_host.host)
+            data["destinationTransportPort"] = self.my_own_host.port
 
 
 
 try:
     factory = FTPFactory(
-        Portal(MyFTPRealm(config.pubdir, )), [FilePasswordDB(config.passwdfile)]
+        Portal(MyFTPRealm(config.pubdir, )), [FilePasswordDB(config.passwd_file)]
     )
     factory.protocol = SimpleFtpProtocol
     reactor.listenTCP(config.port, factory)
     reactor.listenSSL(
         config.sslport,
         factory,
-        ssl.DefaultOpenSSLContextFactory(config.sslcertprivate, config.sslcertpublic),
+        ssl.DefaultOpenSSLContextFactory(config.ssl_cert_private, config.ssl_cert_public),
     )
     logging.info(
         "Server listening on Port %s (Plain) and on %s (SSL)."
