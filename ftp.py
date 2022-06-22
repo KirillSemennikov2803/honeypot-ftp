@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import time, uuid
-from twisted.python import filepath
-from twisted.protocols.ftp import FTPFactory, FTPRealm, FTP
-from twisted.cred.portal import Portal
-from twisted.cred.checkers import FilePasswordDB
-from twisted.internet import reactor, ssl
 import logging
+import time
+import uuid
+
+from twisted.cred.checkers import FilePasswordDB
+from twisted.cred.portal import Portal
+from twisted.internet import reactor, ssl
+from twisted.protocols.ftp import FTPFactory, FTPRealm, FTP
+from twisted.python import filepath
 
 
 class FTPConfig:
